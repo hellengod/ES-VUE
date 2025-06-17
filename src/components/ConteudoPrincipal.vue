@@ -1,7 +1,7 @@
 <script lang="ts">
 export default {
-    data(){
-        return{
+    data() {
+        return {
             ingredientes: ['Alho', 'Manteiga', 'Oregano']
         }
     }
@@ -15,8 +15,8 @@ export default {
                 Sua lista:
             </span>
             <ul class="ingredientes-sua-lista">
-                <li v-for="ingrediente in ingredientes" class="ingrediente">
-                    {{ingrediente}}
+                <li v-for="ingrediente in ingredientes" :key="ingrediente" class="ingrediente">
+                    {{ ingrediente }}
                 </li>
 
             </ul>
