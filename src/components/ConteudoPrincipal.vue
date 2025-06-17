@@ -14,12 +14,16 @@ export default {
             <span class="subtitulo-lg sua-lista-texto">
                 Sua lista:
             </span>
-            <ul class="ingredientes-sua-lista">
+            <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
                 <li v-for="ingrediente in ingredientes" :key="ingrediente" class="ingrediente">
                     {{ ingrediente }}
                 </li>
 
             </ul>
+            <p v-else class="paragrafo lista-vazia">
+                <img src="../assets/images/icones/lista-vazia.svg" alt="icone de pesquisa">
+                Sua lista vazia. Selecione ingredientes para continuar
+            </p>
         </section>
     </main>
 </template>
