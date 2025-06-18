@@ -12,6 +12,8 @@
   justify-content: center;
   align-items: center;
   color: var(--cinza-claro);
+  width: 114%;
+  
 }
 
 @media only screen and (max-width: 1300px) {
