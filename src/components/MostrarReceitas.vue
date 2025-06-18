@@ -3,8 +3,15 @@ import { obterReceitas } from '@/http';
 import type IReceita from '@/interfaces/IReceitas';
 import BotaoPrincipal from './BuscarReceitas.vue';
 import CardReceita from './CardReceita.vue';
+import type { PropType } from 'vue';
+import { itensDeLista1EstaoEmLista2 } from '@/operacoes/listas';
 
 export default {
+  props: {
+    ingredientes: {
+      type: Array as PropType<string[]>, required: true
+    }
+  },
   data() {
     return {
       receitasEncontradas: [] as IReceita[]
@@ -13,7 +20,14 @@ export default {
   async created() {
     const receitas = await obterReceitas();
 
-    this.receitasEncontradas = receitas.slice(0, 8);
+    this.receitasEncontradas = receitas.filter((receita) => {
+      // Logica que verifica se posso fazer a receita:
+      //todos os inredientes de uma receita devem esta inclusos na minha lista de ingredientes
+      //Se sim devemos retornar true
+
+      const possoFazerReceita = itensDeLista1EstaoEmLista2(receita.ingredientes, this.ingredientes);
+      return possoFazerReceita;
+    });
   },
   components: { BotaoPrincipal, CardReceita },
   emits: ['editarReceitas']
@@ -21,36 +35,35 @@ export default {
 </script>
 
 <template>
-    <section class="mostrar-receitas">
-        <h1 class="cabecalho titulo-receitas">Receitas</h1>
+  <section class="mostrar-receitas">
+    <h1 class="cabecalho titulo-receitas">Receitas</h1>
 
-        <p class="paragrafo-lg resultados-encontrados">
-            Resultados encontrados: {{ receitasEncontradas.length }}
-        </p>
+    <p class="paragrafo-lg resultados-encontrados">
+      Resultados encontrados: {{ receitasEncontradas.length }}
+    </p>
 
-        <div v-if="receitasEncontradas.length" class="receitas-wrapper">
-            <p class="paragrafo-lg informacoes">
-                Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!
-            </p>
+    <div v-if="receitasEncontradas.length" class="receitas-wrapper">
+      <p class="paragrafo-lg informacoes">
+        Veja as opções de receitas que encontramos com os ingredientes que você tem por aí!
+      </p>
 
-            <ul class="receitas">
-                <li v-for="receita of receitasEncontradas" :key="receita.nome">
-                    <CardReceita :receita="receita" />
-                </li>
-            </ul>
-        </div>
+      <ul class="receitas">
+        <li v-for="receita of receitasEncontradas" :key="receita.nome">
+          <CardReceita :receita="receita" />
+        </li>
+      </ul>
+    </div>
 
-        <div v-else class="receitas-nao-encontradas">
-            <p class="paragrafo-lg receitas-nao-encontradas__info">
-                Ops, não encontramos resultados para sua combinação. Vamos tentar de novo?
-            </p>
+    <div v-else class="receitas-nao-encontradas">
+      <p class="paragrafo-lg receitas-nao-encontradas__info">
+        Ops, não encontramos resultados para sua combinação. Vamos tentar de novo?
+      </p>
+      <img src="../assets/images/sem-receitas.png"
+        alt="Desenho de um ovo quebrado. A gema tem um rosto com uma expressão triste.">
+    </div>
 
-            <img src="../assets/imagens/sem-receitas.png"
-                alt="Desenho de um ovo quebrado. A gema tem um rosto com uma expressão triste.">
-        </div>
-
-        <BotaoPrincipal texto="Editar lista" @click="$emit('editarReceitas')" />
-    </section>
+    <BotaoPrincipal texto="Editar lista" @click="$emit('editarReceitas')" />
+  </section>
 </template>
 
 <style scoped>
