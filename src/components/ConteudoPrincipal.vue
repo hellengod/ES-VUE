@@ -36,7 +36,8 @@ export default {
             @adicionar-ingrediente="adicionarIngrediente" @remover-ingrediente="removerIngrediente"
             @buscar-receitas="navegar('MostrarReceitas')" />
 
-        <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'" />
+        <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'"
+            @editar-receitas="navegar('SelecionarIngredientes')" />
     </main>
     <Rodape />
 
@@ -65,7 +66,6 @@ export default {
 @media only screen and (max-width: 767px) {
     .conteudo-principal {
         padding: 4rem 1.5rem;
-        gap: 4rem;
-    }
+        gap: 4rem;}
 }
 </style>
