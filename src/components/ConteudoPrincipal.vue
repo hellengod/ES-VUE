@@ -1,5 +1,6 @@
 <script lang="ts">
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
+import Tag from './Tag.vue';
 export default {
     data() {
         return {
@@ -7,8 +8,10 @@ export default {
         }
     },
     components: {
-        SelecionarIngredientes
+        SelecionarIngredientes,
+        Tag
     }
+
 }
 </script>
 
@@ -19,8 +22,8 @@ export default {
                 Sua lista:
             </span>
             <ul v-if="ingredientes.length" class="ingredientes-sua-lista">
-                <li v-for="ingrediente in ingredientes" :key="ingrediente" class="ingrediente">
-                    {{ ingrediente }}
+                <li v-for="ingrediente in ingredientes" :key="ingrediente">
+                    <Tag :texto="ingrediente" />
                 </li>
 
             </ul>
@@ -62,7 +65,7 @@ export default {
     flex-wrap: wrap;
 }
 
-.ingrediente {
+/* .ingrediente {
     display: inline-block;
     border-radius: 0.5rem;
     min-width: 4.25rem;
@@ -72,7 +75,7 @@ export default {
     color: var(--creme, #FFFAF3);
     background: var(--coral, #F0633C);
     font-weight: 700;
-}
+} */
 
 .lista-vazia {
     display: flex;
