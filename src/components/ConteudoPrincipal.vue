@@ -1,13 +1,22 @@
 <script lang="ts">
+import Rodape from './Rodape.vue';
 import SelecionarIngredientes from './SelecionarIngredientes.vue';
 import SuaLista from './SuaLista.vue';
 export default {
     data() {
         return {
-            ingredientes: ['Alho', 'Manteiga', 'Oregano']
+            ingredientes: [] as string[]
         }
     },
-  components: { SelecionarIngredientes, SuaLista }
+    components: { SelecionarIngredientes, SuaLista, Rodape },
+    methods: {
+        adicionarIngrediente(ingrediente: string) {
+            this.ingredientes.push(ingrediente)
+        },
+        removerIngrediente(ingrediente: string) {
+            this.ingredientes = this.ingredientes.filter(iLista => ingrediente !== iLista);
+        },
+    }
 
 
 }
@@ -17,8 +26,9 @@ export default {
     <main class="conteudo-principal">
 
         <SuaLista :ingredientes="ingredientes" />
-        <SelecionarIngredientes />
-
+        <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente"
+            @remover-ingrediente="removerIngrediente" />
+        <<Rodape />
     </main>
 </template>
 
