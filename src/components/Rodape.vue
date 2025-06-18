@@ -12,7 +12,6 @@
   justify-content: center;
   align-items: center;
   color: var(--cinza-claro);
-  width: 114%;
   
 }
 

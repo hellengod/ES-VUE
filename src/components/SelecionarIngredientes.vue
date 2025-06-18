@@ -22,7 +22,7 @@ export default {
             this.categorias = await obterCategorias();
         }
     },
-    emits: ['adicionarIngrediente', 'removerIngrediente']
+    emits: ['adicionarIngrediente', 'removerIngrediente', 'buscarReceitas']
 }
 </script>
 
@@ -42,7 +42,7 @@ export default {
         <p class="paragrafo dica">
             *Atencao: consideramos que voce tem em casa sal, pimenta e agua
         </p>
-        <BuscarReceitas :texto="'Buscar Receitas!'" />
+        <BuscarReceitas :texto="'Buscar Receitas!'"  @click="$emit('buscarReceitas')"/>
 
     </section>
 </template>
