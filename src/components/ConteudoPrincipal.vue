@@ -28,7 +28,7 @@ export default {
         <SuaLista :ingredientes="ingredientes" />
         <SelecionarIngredientes @adicionar-ingrediente="adicionarIngrediente"
             @remover-ingrediente="removerIngrediente" />
-        <<Rodape />
+        <Rodape />
     </main>
 </template>
 
