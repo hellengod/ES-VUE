@@ -5,6 +5,7 @@ import CardCategoria from './CardCategoria.vue';
 import BuscarReceitas from './BuscarReceitas.vue';
 
 export default {
+    name: 'SelecionarIngredientes',
     components: {
         CardCategoria, BuscarReceitas
     },

@@ -32,12 +32,16 @@ export default {
     <main class="conteudo-principal">
 
         <SuaLista :ingredientes="ingredientes" />
-        <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
-            @adicionar-ingrediente="adicionarIngrediente" @remover-ingrediente="removerIngrediente"
-            @buscar-receitas="navegar('MostrarReceitas')" />
 
-        <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'"
-            @editar-receitas="navegar('SelecionarIngredientes')" />
+        <KeepAlive include="SelecionarIngredientes" >
+            <SelecionarIngredientes v-if="conteudo === 'SelecionarIngredientes'"
+                @adicionar-ingrediente="adicionarIngrediente" @remover-ingrediente="removerIngrediente"
+                @buscar-receitas="navegar('MostrarReceitas')" />
+
+            <MostrarReceitas v-else-if="conteudo === 'MostrarReceitas'"
+                @editar-receitas="navegar('SelecionarIngredientes')" />
+        </KeepAlive>
+
     </main>
     <Rodape />
 
@@ -66,6 +70,7 @@ export default {
 @media only screen and (max-width: 767px) {
     .conteudo-principal {
         padding: 4rem 1.5rem;
-        gap: 4rem;}
+        gap: 4rem;
+    }
 }
 </style>
